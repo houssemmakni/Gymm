@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reclamations{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        h1 {
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+            transform: scale(1.02);
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            margin-right: 10px;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #2072b3;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Reclamations</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reclamation in reclamations %}
+                    <tr>
+                        <th scope="row">{{ reclamation.id }}</th>
+                        <td>{{ reclamation.dateReclamation ? reclamation.dateReclamation|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ reclamation.description }}</td>
+                        <td>{{ reclamation.userId }}</td>
+                        <td>{{ reclamation.status }}</td>
+                        <td>
+                            <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">Show</a>
+                            <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">Edit</a>
+                            <a href="{{ path('app_reclamation_delete', {'id': reclamation.id}) }}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
